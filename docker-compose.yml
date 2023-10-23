@@ -23,14 +23,18 @@ services:
         container_name: app
 
     db:
-        image: mysql:8.0
-        # restart: always
-        volumes:
-            - ./tmp/db:/var/lib/mysql
+        image: postgres:${POSTGRES_VERSION:-15}-alpine
         environment:
-            MYSQL_DATABASE: lardocker
-            MYSQL_ROOT_PASSWORD: root
+            POSTGRES_DB: ${POSTGRES_DB:-app}
+            # You should definitely change the password in production
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secret}
+            POSTGRES_USER: ${POSTGRES_USER:-app}
         ports:
-            - 8101:3306
+            - "5435:5432"
+        volumes:
+            - db_data:/var/lib/postgresql/data:rw
         # command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
         container_name: project_db
+
+volumes:
+    db_data:

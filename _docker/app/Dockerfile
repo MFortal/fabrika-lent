@@ -22,4 +22,11 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
     --filename=composer \
     --install-dir=/usr/local/bin
 
+ RUN docker-php-ext-install zip \
+    pdo \
+    pdo_pgsql \
+    pgsql
+
+RUN apt-get update
+
 WORKDIR /var/www
