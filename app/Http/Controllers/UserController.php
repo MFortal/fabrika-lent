@@ -9,6 +9,8 @@ class UserController extends Controller
 {
     public function index()
     {
+        return config('products.role');
+        return User::find(3)->isAdmin();
         return User::all();
     }
 }
