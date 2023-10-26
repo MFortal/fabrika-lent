@@ -17,13 +17,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::get('/test', [UserController::class, 'index']);
 
-Route::get('/test/status', [ProductController::class, 'index']);
+Route::get('/product', [ProductController::class, 'index']);
+Route::post('/product/create', [ProductController::class, 'create']);
 
 // Login route
 Route::post('/login', [AuthController::class, 'login']);
