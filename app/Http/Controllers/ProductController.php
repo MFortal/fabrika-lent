@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequest;
+use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Throwable;
@@ -33,7 +34,7 @@ class ProductController extends Controller
         dd('5');
     }
 
-    public function delete(Request $request, int $id)
+    public function delete(int $id)
     {
         try {
             Product::findOrFail($id)->delete();
@@ -42,6 +43,25 @@ class ProductController extends Controller
             return response('Не удалось удалить продукт', 400);
         }
     }
+
+    public function show(int $id)
+    {
+        try {
+            return new ProductResource(Product::findOrFail($id));
+        } catch (Throwable $e) {
+            return response('Не удалось найти продукт', 400);
+        }
+    }
+
+    public function showAll()
+    {
+        try {
+            return ProductResource::collection(Product::all());
+        } catch (Throwable $e) {
+            return response('Что-то пошло не так. Попробуйте позже', 400);
+        }
+    }
+
 
     // /**
     //  * Store a newly created resource in storage.

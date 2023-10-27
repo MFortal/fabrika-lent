@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // create products
-        Product::factory(5)->create();
+        Product::factory(10)->create();
 
         // create roles
         $role_admin = Role::create([

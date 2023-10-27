@@ -31,5 +31,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('/product')->group(function () {
         Route::delete('/delete/{id}', [ProductController::class, 'delete'])->middleware('can:delete product');
+        Route::get('/show/{id}', [ProductController::class, 'show'])->middleware('can:show product');
+        Route::get('/showAll', [ProductController::class, 'showAll'])->middleware('can:show product');
     });
 });
