@@ -7,10 +7,10 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return config('products.role');
-        return User::find(3)->isAdmin();
+
+        return $request->user()->can('add product') ? 1 : 0;
         return User::all();
     }
 }

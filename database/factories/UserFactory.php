@@ -19,7 +19,8 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
+            'email' =>
+            preg_replace('/@example\..*/', '@gmail.com', fake()->unique()->safeEmail),
             'email_verified_at' => now(),
             'password' => '12345',
             'remember_token' => Str::random(10),
