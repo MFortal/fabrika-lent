@@ -45,8 +45,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function isAdmin()
+    public function permissionUpdateArticle()
     {
-        return $this->is_admin;
+        return $this->can('update article product');
     }
 }

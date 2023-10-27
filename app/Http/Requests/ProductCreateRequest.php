@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Models\StatusTypes;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProductRequest extends FormRequest
+class ProductCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +23,6 @@ class ProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => 'nullable|exists:products',
             'article' => 'required|unique:products|max:255',
             'name' => 'required|min:10|max:255|regex:/^[a-zA-Z0-9].{10,}$/',
             'status' => 'required|in:' . StatusTypes::Available() . ',' . StatusTypes::Unavailable(),

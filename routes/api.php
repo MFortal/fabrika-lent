@@ -29,7 +29,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('/product')->group(function () {
         Route::get('/show/{id}', [ProductController::class, 'show'])->middleware('can:show product');
         Route::get('/showAll', [ProductController::class, 'showAll'])->middleware('can:show product');
+
         Route::post('/create', [ProductController::class, 'create'])->middleware('can:create product');
+        Route::put('/update', [ProductController::class, 'update'])->middleware('can:update product');
+
         Route::delete('/delete/{id}', [ProductController::class, 'delete'])->middleware('can:delete product');
     });
 });
