@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
 
         // create roles
         $role_admin = Role::create([
-            'name' => 'admin',
+            'name' => 'administrator',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
@@ -39,18 +39,25 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // create permissions
-        $permission_add = Permission::create(
-            ['name' => 'add product']
-        );
-
-        $permission_show =  Permission::create(
-            ['name' => 'show product']
-        );
+        $permission_show =  Permission::create(['name' => 'show product']);
+        $permission_delete =  Permission::create(['name' => 'delete product']);
+        $permission_create =  Permission::create(['name' => 'create product']);
+        $permission_update =  Permission::create(['name' => 'update product']);
+        $permission_update_article =  Permission::create(['name' => 'update article product']);
 
         $permission_show->assignRole($role_admin);
         $permission_show->assignRole($role_user);
 
-        $permission_add->assignRole($role_admin);
+        $permission_create->assignRole($role_admin);
+        $permission_create->assignRole($role_user);
+
+        $permission_update->assignRole($role_admin);
+        $permission_update->assignRole($role_user);
+
+        $permission_delete->assignRole($role_admin);
+        $permission_delete->assignRole($role_user);
+
+        $permission_update_article->assignRole($role_admin);
 
         // create admin
         $admin = User::create([

@@ -28,4 +28,8 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', [AuthController::class, 'me']);
     Route::get('/logout', [AuthController::class, 'logout']);
+
+    Route::prefix('/product')->group(function () {
+        Route::delete('/delete/{id}', [ProductController::class, 'delete'])->middleware('can:delete product');
+    });
 });

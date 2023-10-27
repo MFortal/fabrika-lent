@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Throwable;
 
 class ProductController extends Controller
 {
@@ -30,6 +31,16 @@ class ProductController extends Controller
     {
         $validated = $request->validated();
         dd('5');
+    }
+
+    public function delete(Request $request, int $id)
+    {
+        try {
+            Product::findOrFail($id)->delete();
+            return response('Продукт с id=' . $id . ' удален', 200);
+        } catch (Throwable $e) {
+            return response('Не удалось удалить продукт', 400);
+        }
     }
 
     // /**
