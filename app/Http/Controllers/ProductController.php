@@ -23,15 +23,18 @@ class ProductController extends Controller
     }
 
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create(ProductRequest $request)
     {
         $validated = $request->validated();
-        dd('5');
+
+        $product = new Product();
+        $product->article = $validated['article'];
+        $product->name = $validated['name'];
+        $product->status = $validated['status'];
+        $product->data = $validated['data'];
+        $product->save();
+
+        return new ProductResource($product);
     }
 
     public function delete(int $id)

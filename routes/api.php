@@ -19,9 +19,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/test', [UserController::class, 'index']);
 
-Route::get('/product', [ProductController::class, 'index']);
-Route::post('/product/create', [ProductController::class, 'create']);
-
 // Login route
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -30,8 +27,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout']);
 
     Route::prefix('/product')->group(function () {
-        Route::delete('/delete/{id}', [ProductController::class, 'delete'])->middleware('can:delete product');
         Route::get('/show/{id}', [ProductController::class, 'show'])->middleware('can:show product');
         Route::get('/showAll', [ProductController::class, 'showAll'])->middleware('can:show product');
+        Route::post('/create', [ProductController::class, 'create'])->middleware('can:create product');
+        Route::delete('/delete/{id}', [ProductController::class, 'delete'])->middleware('can:delete product');
     });
 });

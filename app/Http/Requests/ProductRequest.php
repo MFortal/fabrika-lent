@@ -25,7 +25,7 @@ class ProductRequest extends FormRequest
         return [
             'id' => 'nullable|exists:products',
             'article' => 'required|unique:products|max:255',
-            'name' => 'required|min:10|max:255|regex:/^[a-zA-Z0-9].{10,}$/|unique:products',
+            'name' => 'required|min:10|max:255|regex:/^[a-zA-Z0-9].{10,}$/',
             'status' => 'required|in:' . StatusTypes::Available() . ',' . StatusTypes::Unavailable(),
             'data' => 'nullable|json'
         ];
