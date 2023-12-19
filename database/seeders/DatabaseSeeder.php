@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Product;
+use App\Models\TypeNotification;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use Carbon\Carbon;
@@ -77,5 +78,12 @@ class DatabaseSeeder extends Seeder
         foreach ($users as $user) {
             $user->assignRole($role_user->name);
         }
+
+
+        // add type notification
+        TypeNotification::create([
+            'name' => 'Создание продукта',
+            'pattern' => 'Продукт с id=%s успешно создан пользователем с id=%s.'
+        ]);
     }
 }
