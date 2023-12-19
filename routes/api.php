@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -25,14 +27,18 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', [AuthController::class, 'me']);
     Route::get('/logout', [AuthController::class, 'logout']);
-
-    Route::prefix('/product')->group(function () {
-        Route::get('/show/{id}', [ProductController::class, 'show'])->middleware('can:show product');
-        Route::get('/showAll', [ProductController::class, 'showAll'])->middleware('can:show product');
-
-        Route::post('/create', [ProductController::class, 'create'])->middleware('can:create product');
-        Route::put('/update', [ProductController::class, 'update'])->middleware('can:update product');
-
-        Route::delete('/delete/{id}', [ProductController::class, 'delete'])->middleware('can:delete product');
-    });
 });
+
+
+Route::prefix('/products')->group(function () {
+    Route::get('/show/{id}', [ProductController::class, 'show'])->middleware('can:show product');
+    Route::get('/showAll', [ProductController::class, 'showAll']);
+
+    Route::post('/create', [ProductController::class, 'create'])->middleware('can:create product');
+    Route::put('/update', [ProductController::class, 'update'])->middleware('can:update product');
+
+    Route::delete('/delete/{id}', [ProductController::class, 'delete'])->middleware('can:delete product');
+});
+
+
+Route::get('/order', [OrderController::class, 'index']);
